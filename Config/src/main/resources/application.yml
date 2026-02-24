@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: native # means that the configurations are stored locally, in the project and not in a Git or another sources
+  application:
+    name: Config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configurations
+server:
+  port: 8888
