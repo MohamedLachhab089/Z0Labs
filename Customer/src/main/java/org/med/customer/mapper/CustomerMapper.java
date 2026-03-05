@@ -1,5 +1,6 @@
 package org.med.customer.mapper;
 
+import org.apache.commons.lang3.StringUtils;
 import org.med.customer.dto.CustomerRequest;
 import org.med.customer.model.Customer;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,21 @@ public class CustomerMapper {
         customer.getLastname(),
         customer.getEmail(),
         customer.getAddress());
+  }
+
+  // This is used to merge the customer during the update
+  public void mergeCustomer(Customer customer, CustomerRequest request) {
+    if (StringUtils.isNotBlank(request.firstName())) {
+      customer.setFirstname(request.firstName());
+    }
+    if (StringUtils.isNotBlank(request.lastName())) {
+      customer.setLastname(request.lastName());
+    }
+    if (StringUtils.isNotBlank(request.email())) {
+      customer.setEmail(request.email());
+    }
+    if (request.address() != null) {
+      customer.setAddress(request.address());
+    }
   }
 }
