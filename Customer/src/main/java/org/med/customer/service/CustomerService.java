@@ -9,11 +9,22 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
+
   public final CustomerRepository customerRepository;
   public final CustomerMapper customerMapper;
 
   public String createCustomer(CustomerRequest customerRequest) {
     var customer = customerRepository.save(customerMapper.toCustomer(customerRequest));
     return customer.getId();
+  }
+
+  public void updateCustomer(CustomerRequest customerRequest) {
+    var customer =
+        customerRepository
+            .findById(customerRequest.id())
+            .orElseThrow(
+                () -> new RuntimeException("Customer not found with id: " + customerRequest.id()));
+    customerMapper.mergeCustomer(customer, customerRequest);
+    customerRepository.save(customer);
   }
 }
