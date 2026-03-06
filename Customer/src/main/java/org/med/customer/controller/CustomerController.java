@@ -1,8 +1,10 @@
 package org.med.customer.controller;
 
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.med.customer.dto.CustomerRequest;
+import org.med.customer.dto.CustomerResponse;
 import org.med.customer.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +26,10 @@ public class CustomerController {
   public ResponseEntity<Void> updateCustomer(@RequestBody @Valid CustomerRequest customerRequest) {
     customerService.updateCustomer(customerRequest);
     return ResponseEntity.accepted().build();
+  }
+
+  @GetMapping
+  public ResponseEntity<List<CustomerResponse>> getAllCustomers() {
+    return ResponseEntity.ok(customerService.getAllCustomers());
   }
 }

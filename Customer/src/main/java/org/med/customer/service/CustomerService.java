@@ -1,7 +1,9 @@
 package org.med.customer.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.med.customer.dto.CustomerRequest;
+import org.med.customer.dto.CustomerResponse;
 import org.med.customer.exception.CustomerNotFoundException;
 import org.med.customer.mapper.CustomerMapper;
 import org.med.customer.repository.CustomerRepository;
@@ -24,8 +26,15 @@ public class CustomerService {
         customerRepository
             .findById(customerRequest.id())
             .orElseThrow(
-                () -> new CustomerNotFoundException("Cannot update Customer :: No Customer found with id: " + customerRequest.id()));
+                () ->
+                    new CustomerNotFoundException(
+                        "Cannot update Customer :: No Customer found with id: "
+                            + customerRequest.id()));
     customerMapper.mergeCustomer(customer, customerRequest);
     customerRepository.save(customer);
+  }
+
+  public List<CustomerResponse> getAllCustomers() {
+    return customerRepository.findAll().stream().map(customerMapper::toCustomerResponse).toList();
   }
 }
