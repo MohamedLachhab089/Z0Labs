@@ -2,6 +2,7 @@ package org.med.customer.service;
 
 import lombok.RequiredArgsConstructor;
 import org.med.customer.dto.CustomerRequest;
+import org.med.customer.exception.CustomerNotFoundException;
 import org.med.customer.mapper.CustomerMapper;
 import org.med.customer.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class CustomerService {
         customerRepository
             .findById(customerRequest.id())
             .orElseThrow(
-                () -> new RuntimeException("Customer not found with id: " + customerRequest.id()));
+                () -> new CustomerNotFoundException("Cannot update Customer :: No Customer found with id: " + customerRequest.id()));
     customerMapper.mergeCustomer(customer, customerRequest);
     customerRepository.save(customer);
   }
