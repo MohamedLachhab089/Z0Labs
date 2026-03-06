@@ -2,6 +2,7 @@ package org.med.customer.mapper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.med.customer.dto.CustomerRequest;
+import org.med.customer.dto.CustomerResponse;
 import org.med.customer.model.Customer;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +22,11 @@ public class CustomerMapper {
         .build();
   }
 
-  public CustomerRequest toCustomerRequest(Customer customer) {
+  public CustomerResponse toCustomerResponse(Customer customer) {
     if (customer == null) {
       return null;
     }
-    return new CustomerRequest(
+    return new CustomerResponse(
         customer.getId(),
         customer.getFirstname(),
         customer.getLastname(),
