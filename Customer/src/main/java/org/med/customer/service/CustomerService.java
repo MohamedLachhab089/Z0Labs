@@ -37,4 +37,25 @@ public class CustomerService {
   public List<CustomerResponse> getAllCustomers() {
     return customerRepository.findAll().stream().map(customerMapper::toCustomerResponse).toList();
   }
+
+  public CustomerResponse findCustomerById(String id) {
+    return customerRepository
+        .findById(id)
+        .map(customerMapper::toCustomerResponse)
+        .orElseThrow(
+            () ->
+                new CustomerNotFoundException(String.format("No Customer found with id: %s", id)));
+  }
+
+  public boolean existsCustomerById(String id) {
+    return customerRepository.findById(id).isPresent();
+  }
+
+  public void deleteCustomerById(String id) {
+    if (!customerRepository.existsById(id)) {
+      throw new CustomerNotFoundException(
+          String.format("Deletion denied :: No Customer found with id: %s", id));
+    }
+    customerRepository.deleteById(id);
+  }
 }
