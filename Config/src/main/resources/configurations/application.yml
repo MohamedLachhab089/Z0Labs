@@ -1,0 +1,22 @@
+# services must find each other dynamically, instead of hardcoding addresses
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+name:
+  value: med
+
+# instead of storing configuration in every service, you keep them in a central config server
+spring:
+  cloud:
+    config:
+      override-system-properties: false
+
+# allows you to track a request across all services
+management:
+  tracing:
+    sampling:
+      probability: 1.0
