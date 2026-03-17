@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/order
+    username: med
+    password: med
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+
+server:
+  port: 8070
+
+application:
+  config:
+    customer-url: http://localhost:8090/api/v1/customers
+    product-url: http://localhost:8050/api/v1/products
