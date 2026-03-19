@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"org.med.customer", "org.med.product"})
+@EnableFeignClients(basePackages = {"org.med.customer", "org.med.product", "org.med.payment"})
 @EnableJpaAuditing
 public class OrderApplication {
 
