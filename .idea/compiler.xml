@@ -22,6 +22,15 @@
         <module name="Product" />
         <module name="Customer" />
       </profile>
+      <profile name="Annotation profile for payment" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+        </processorPath>
+        <module name="Payment" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
@@ -30,6 +39,7 @@
       <module name="Customer" options="-parameters" />
       <module name="Discovery" options="-parameters" />
       <module name="Order" options="-parameters" />
+      <module name="Payment" options="-parameters" />
       <module name="Product" options="-parameters" />
     </option>
   </component>

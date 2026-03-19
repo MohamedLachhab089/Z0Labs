@@ -13,6 +13,8 @@ import org.med.order.mapper.OrderMapper;
 import org.med.order.repository.OrderRepository;
 import org.med.orderLine.dto.OrderLineRequest;
 import org.med.orderLine.service.OrderLineService;
+import org.med.payment.PaymentClient;
+import org.med.payment.PaymentRequest;
 import org.med.product.ProductClient;
 import org.med.product.PurchaseRequest;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class OrderService {
   private final ProductClient productClient;
   private final OrderLineService orderLineService;
   private final OrderProducer orderProducer;
+  private final PaymentClient paymentClient;
 
   public OrderResponse getOrderById(Integer id) {
     return orderRepository
@@ -57,7 +60,14 @@ public class OrderService {
               null, order.getId(), purchaseRequest.productId(), purchaseRequest.quantity()));
     }
 
-    // TODO: Payment MS
+    var payment =
+        new PaymentRequest(
+            request.amount(),
+            request.paymentMethod(),
+            order.getId(),
+            order.getReference(),
+            customer);
+    paymentClient.requestOrderPayment(payment);
 
     orderProducer.sendOrderConfirmation(
         new OrderConfirmation(
